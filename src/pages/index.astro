@@ -11,6 +11,8 @@ const isProgrammatic =
 	userAgent.includes("wget") ||
 	request.headers.get("accept")?.includes("text/plain");
 
+console.log(isProgrammatic);
+
 // If it's a programmatic request, serve plain text
 if (isProgrammatic) {
 	return new Response(getDocContent(), {

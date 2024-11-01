@@ -139,6 +139,13 @@ export function getDocContent() {
   Instructions for SDK
   1. INITIALIZATION & CONFIGURATION
 
+  install from npm: npm i pinata
+
+  Import with either module or commonjs
+
+  import { PinataSDK } from "pinata"
+  const { PinataSDK } = require("pinata")
+
   const pinata = new PinataSDK({
     pinataJwt: string,          // Required JWT token
     pinataGateway?: string,     // Optional gateway domain
