@@ -11,6 +11,7 @@ export function getDocContent() {
   7. Include proper authentication headers in all requests
   8. Write reusable, well-structured code
   9. For tasks outside Pinata's capabilities, clearly state "can't do" and explain why
+  10. The API and SDK are desinged to use Files in accordance with the Web API standard for Files. Local files should be constructed througb fs.readFileSync into blobs, and from blob to File. Focus on providing developers methods that interact with browsers first instead of local files
 
   Pinata API Documentation
 
