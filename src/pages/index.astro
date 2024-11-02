@@ -7,25 +7,21 @@ import logo from "../assets/logo.png";
 const { request } = Astro;
 const userAgent = request.headers.get("user-agent")?.toLowerCase() || "";
 
-// Check if it's a programmatic request (curl, wget, etc.)
 const isProgrammatic =
 	userAgent.includes("curl") ||
 	userAgent.includes("wget") ||
 	request.headers.get("accept")?.includes("text/plain");
 
-console.log(isProgrammatic);
-
-// If it's a programmatic request, serve plain text
 if (isProgrammatic) {
-	return new Response(getDocContent(), {
+	const text = await getDocContent();
+	return new Response(text, {
 		headers: {
 			"Content-Type": "text/plain",
 		},
 	});
 }
 
-// Otherwise, continue with HTML rendering
-const content = getDocContent();
+const content = await getDocContent();
 ---
 
 <Layout title="Pinata Docs for LLMs">
@@ -42,7 +38,7 @@ const content = getDocContent();
   </header>
 
   <main>
-    <button id="copyButton">Copy Content</button>
+    <button id="copyButton">Copy</button>
     <pre>{content}</pre>
   </main>
 
@@ -112,23 +108,23 @@ const content = getDocContent();
         await navigator.clipboard.writeText(pre.textContent || '');
         copyButton.textContent = 'Copied!';
         setTimeout(() => {
-          copyButton.textContent = 'Copy Content';
+          copyButton.textContent = 'Copy';
         }, 2000);
       } catch (err) {
         console.error('Failed to copy:', err);
         copyButton.textContent = 'Failed to copy';
         setTimeout(() => {
-          copyButton.textContent = 'Copy Content';
+          copyButton.textContent = 'Copy';
         }, 2000);
       }
     });
 
     // Hover effects
     copyButton.addEventListener('mouseover', () => {
-      copyButton.style.backgroundColor = '#582cd6';
+      copyButton.style.backgroundColor = '#232323';
     });
     copyButton.addEventListener('mouseout', () => {
-      copyButton.style.backgroundColor = '#6d57ff';
+      copyButton.style.backgroundColor = '#000000';
     });
   }
 </script>
