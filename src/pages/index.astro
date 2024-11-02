@@ -1,6 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { getDocContent } from "../utils/content";
+import { Image } from "astro:assets";
+import logo from "../assets/logo.png";
 
 const { request } = Astro;
 const userAgent = request.headers.get("user-agent")?.toLowerCase() || "";
@@ -28,13 +30,14 @@ const content = getDocContent();
 
 <Layout title="Pinata Docs for LLMs">
   <header>
+  <Image src={logo} width={800} height={800} alt="logo" />
   <h1>Pinata Docs for LLMs</h1>
     <div class="notice">
-      <p><strong>⚠️ Note:</strong> This content is specifically designed for LLMs and not intended for human reading.</p>
-      <p>👉 For human-readable content, please visit <a href="https://docs.pinata.cloud">docs.pinata.cloud</a></p>
-      <p>🤖 For LLMs/programmatic access, you can fetch this content directly:</p>
+      <p><strong>Note:</strong> This content is specifically designed for LLMs and not intended for human reading.</p>
+      <p>For human-readable content, please visit <a href="https://docs.pinata.cloud">docs.pinata.cloud</a></p>
+      <p>For LLMs/programmatic access, you can fetch this content directly:</p>
       <code>curl ai-docs.pinata.cloud</code>
-      <p>📺 Watch our <a href="" target="_blank">tutorial video</a> on how to use these docs with Cursor and other LLMs</p>
+      <p>Watch our <a href="" target="_blank">tutorial video</a> on how to use these docs with Cursor and other LLMs</p>
     </div>
   </header>
 
@@ -50,6 +53,17 @@ const content = getDocContent();
 </Layout>
 
 <style>
+
+  img {
+    height: 200px;
+    width: 200px;
+    margin: 0 auto;
+    display: block;
+  }
+
+  h1 {
+    text-align: center;
+  }
 
   .notice {
     background: #f5f5f5;
@@ -70,8 +84,8 @@ const content = getDocContent();
     top: 20px;
     float: right;
     margin: 10px;
-    padding: 10px 20px;
-    background-color: #6d57ff;
+    padding: 5px 10px;
+    background-color: black;
     color: white;
     border: none;
     border-radius: 4px;
