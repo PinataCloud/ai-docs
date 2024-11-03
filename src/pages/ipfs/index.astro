@@ -1,8 +1,8 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import { getFilesContent } from "../utils/content";
+import Layout from "../../layouts/Layout.astro";
+import { getIPFSContent } from "../../utils/content";
 import { Image } from "astro:assets";
-import logo from "../assets/logo.png";
+import logo from "../../assets/logo.png";
 
 const { request } = Astro;
 const userAgent = request.headers.get("user-agent")?.toLowerCase() || "";
@@ -13,7 +13,7 @@ const isProgrammatic =
 	request.headers.get("accept")?.includes("text/plain");
 
 if (isProgrammatic) {
-	const text = await getFilesContent();
+	const text = await getIPFSContent();
 	return new Response(text, {
 		headers: {
 			"Content-Type": "text/plain",
@@ -21,18 +21,18 @@ if (isProgrammatic) {
 	});
 }
 
-const content = await getFilesContent();
+const content = await getIPFSContent();
 ---
 
-<Layout title="Pinata Docs for LLMs">
+<Layout title="Pinata IPFS Docs for LLMs">
   <header>
   <Image src={logo} width={800} height={800} alt="logo" />
-  <h1>Pinata Docs for LLMs</h1>
+  <h1>Pinata IPFS Docs for LLMs</h1>
     <div class="notice">
       <p><strong>Note:</strong> This content is specifically designed for LLMs and not intended for human reading.</p>
       <p>For human-readable content, please visit <a href="https://docs.pinata.cloud">docs.pinata.cloud</a></p>
       <p>For LLMs/programmatic access, you can fetch this content directly:</p>
-      <code>curl ai-docs.pinata.cloud</code>
+      <code>curl ai-docs.pinata.cloud/ipfs</code>
       <p>Watch our <a href="" target="_blank">tutorial video</a> on how to use these docs with Cursor and other LLMs</p>
     </div>
   </header>
@@ -44,7 +44,7 @@ const content = await getFilesContent();
 
   <footer>
     <p>For human-readable content, please visit <a href="https://docs.pinata.cloud">docs.pinata.cloud</a></p>
-    <p>For direct content access: <code>curl ai-docs.pinata.cloud</code></p>
+    <p>For direct content access: <code>curl ai-docs.pinata.cloud/ipfs</code></p>
   </footer>
 </Layout>
 
