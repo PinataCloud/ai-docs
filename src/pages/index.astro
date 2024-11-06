@@ -1,22 +1,19 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { getFilesContent } from "../utils/content";
+import { isProgrammaticRequest } from "../utils/requestHelpers";
 import { Image } from "astro:assets";
 import logo from "../assets/logo.png";
 
 const { request } = Astro;
-const userAgent = request.headers.get("user-agent")?.toLowerCase() || "";
 
-const isProgrammatic =
-	userAgent.includes("curl") ||
-	userAgent.includes("wget") ||
-	request.headers.get("accept")?.includes("text/plain");
-
-if (isProgrammatic) {
+if (isProgrammaticRequest(request)) {
 	const text = await getFilesContent();
 	return new Response(text, {
 		headers: {
 			"Content-Type": "text/plain",
+			"X-Robots-Tag": "noindex",
+			"Cache-Control": "no-store",
 		},
 	});
 }
