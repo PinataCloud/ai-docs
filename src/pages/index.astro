@@ -12,7 +12,6 @@ if (isProgrammaticRequest(request)) {
 	return new Response(text, {
 		headers: {
 			"Content-Type": "text/plain",
-			"X-Robots-Tag": "noindex",
 			"Cache-Control": "no-store",
 		},
 	});
